@@ -1,4 +1,5 @@
 # React MusicXML
+
 MusicXML sheet music renderer for React
 
 ## Purpose
@@ -39,10 +40,10 @@ import {
   Staff,
   Clef
  } form 'react-musicxml';
- 
+
 const SheetMusicExample = () => {
   return (
-    <SheetMusicLayout>    
+    <SheetMusicLayout>
       <Staff>
         <Clef name="F-clef" />
         <KeySignature fifths={-2}>
@@ -55,71 +56,72 @@ const SheetMusicExample = () => {
 export default SheetMusicExample;
 ```
 
-Another possibility is to implement a solution which exposes MusicXML compatible syntax, pretty much in the way that the React/JSX combo mimcs HTML syntax:
+Another possibility is to implement a solution which exposes MusicXML compatible syntax, pretty much in the way that the React/JSX combo mimcs HTML syntax.
+
+The following example was taken from a `.musicxml` file produced with Musescore and adapted to match React/JSX compatible sytnax:
 
 ```javascript
 const SheetMusicExample = () => {
   return (
-    <score-partwise version="3.1">
-      <part-list>
-        <score-part id="P1">
-          <part-name>Piano</part-name>
-          <part-abbreviation>Pno.</part-abbreviation>
-          <score-instrument id="P1-I1">
-            <instrument-name>Piano</instrument-name>
-            </score-instrument>
-          </score-part>
-        </part-list>
-      <part id="P1">
-        <measure number="1" width="292.91">
-          <attributes>
-            <divisions>1</divisions>
-            <key>
-              <fifths>0</fifths>
-              </key>
-            <time>
-              <beats>4</beats>
-              <beat-type>4</beat-type>
-              </time>
-            <staves>2</staves>
-            <clef number="1">
-              <sign>G</sign>
-              <line>2</line>
-              </clef>
-            <clef number="2">
-              <sign>F</sign>
-              <line>4</line>
-              </clef>
-            </attributes>
-          <note default-x="86.27" default-y="-50.00">
-            <pitch>
-              <step>C</step>
-              <octave>4</octave>
-              </pitch>
-            <duration>4</duration>
-            <voice>1</voice>
-            <type>whole</type>
-            <staff>1</staff>
-            </note>
-          <backup>
-            <duration>4</duration>
-            </backup>
-          <note>
-            <rest/>
-            <duration>4</duration>
-            <voice>5</voice>
-            <staff>2</staff>
-          </note>
-          <barline location="right">
-            <bar-style>light-heavy</bar-style>
-          </barline>
-        </measure>
-      </part>
-    </score-partwise>
+    <ScorePartwise>
+      <PartList>
+        <ScorePart>
+          <PartName>Piano</PartName>
+          <PartAbbreviation>Pno.</PartAbbreviation>
+          <Score-instrument>
+            <instrumentName>Piano</instrumentName>
+          </Score-instrument>
+        </ScorePart>
+      </PartList>
+      <Part>
+        <Measure number={1}>
+          <Attributes>
+            <Divisions>1</Divisions>
+            <Key>
+              <Fifths>0</Fifths>
+            </Key>
+            <Time>
+              <Beats>4</Beats>
+              <Beat-type>4</Beat-type>
+            </Time>
+            <Staves>2</Staves>
+            <Clef number={1}>
+              <Sign>G</Sign>
+              <Line>2</Line>
+            </Clef>
+            <Clef number={2}>
+              <Sign>F</Sign>
+              <Line>4</Line>
+            </Clef>
+          </Attributes>
+          <Note>
+            <Pitch>
+              <Step>C</Step>
+              <Octave>4</Octave>
+            </Pitch>
+            <Duration>4</Duration>
+            <Voice>1</Voice>
+            <Type>whole</Type>
+            <Staff>1</Staff>
+          </Note>
+          <Backup>
+            <Duration>4</Duration>
+          </Backup>
+          <Note>
+            <Rest />
+            <Duration>4</Duration>
+            <Voice>5</Voice>
+            <Staff>2</Staff>
+          </Note>
+          <Barline location="right">
+            <BarStyle>light-heavy</BarStyle>
+          </Barline>
+        </Measure>
+      </Part>
+    </ScorePartwise>
   );
-}
+};
 ```
-
 
 ### Note:
 
