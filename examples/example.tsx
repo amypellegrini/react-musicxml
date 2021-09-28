@@ -1,7 +1,8 @@
 import React from "react";
+import ReactMusicXML from "../src";
 
 function Example() {
-  return <>Hello World!</>;
+  return <ReactMusicXML url="./example.musicxml" />;
 }
 
 export default Example;
