@@ -4,7 +4,8 @@
   "description": "MusicXML sheet music renderer for React",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,13 @@
   },
   "homepage": "https://github.com/amypellegrini/react-musicxml#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.2",
     "@types/react": "^17.0.24",
+    "babel-jest": "^27.2.4",
+    "jest": "^27.2.4",
     "process": "^0.11.10",
     "raw-loader": "^4.0.2",
     "react-dom": "^17.0.2",
@@ -34,6 +41,6 @@
   },
   "dependencies": {
     "react": "^17.0.2",
-    "react-scorewriter": "^0.0.0-alpha.11"
+    "react-scorewriter": "^0.0.0-alpha.12"
   }
 }
