@@ -4,7 +4,7 @@ import example from "./example.musicxml";
 import ReactMusicXML from "../src";
 
 function Example() {
-  return <ReactMusicXML content={example} />;
+  return <ReactMusicXML xml={example} />;
 }
 
 export default Example;

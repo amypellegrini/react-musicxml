@@ -1,9 +1,9 @@
 import React from "react";
-import { Staff, Clef } from "react-scorewriter";
+import { Stave } from "react-scorewriter";
 
-const ReactMusicXML = ({ content }: { content: string }) => {
+const ReactMusicXML = ({ xml }: { xml: string }) => {
   const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(content, "text/xml");
+  const xmlDoc = parser.parseFromString(xml, "text/xml");
   const rootElement = xmlDoc.children[0];
   const parts = Array.from(rootElement.getElementsByTagName("part"));
 
@@ -11,17 +11,12 @@ const ReactMusicXML = ({ content }: { content: string }) => {
     <svg>
       {parts.map((part, idx) => {
         const clef = part.children[0].children[0].getElementsByTagName("clef");
-        const clefType =
+        const clefName =
           clef[0].getElementsByTagName("sign")[0].textContent === "G"
             ? "G-clef"
             : "F-clef";
 
-        return (
-          <>
-            <Clef name={clefType} />
-            <Staff key={idx} />
-          </>
-        );
+        return <Stave clef={clefName} />;
       })}
     </svg>
   );
