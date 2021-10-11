@@ -1,133 +1,111 @@
 {
-  "scorePartwise": {
-    "attributes": {
-      "version": "4.0"
-    },
-    "children": [
-      {
-        "partList": {
-          "children": [
-            {
-              "scorePart": {
-                "attributes": {
-                  "id": "P1"
-                },
-                "children": [
-                  {
-                    "partName": {
-                      "value": "Music"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      {
-        "part": {
+  "type": "ScorePartwise",
+  "attributes": {
+    "version": "4.0"
+  },
+  "children": [
+    {
+      "type": "PartList",
+      "children": [
+        {
+          "type": "ScorePart",
           "attributes": {
             "id": "P1"
           },
           "children": [
             {
-              "measure": {
-                "attributes": {
-                  "number": "1"
-                },
-                "children": [
-                  {
-                    "attributes": {
-                      "children": [
-                        {
-                          "divisions": {
-                            "value": "1"
-                          }
-                        },
-                        {
-                          "key": {
-                            "children": [
-                              {
-                                "fifths": {
-                                  "value": "0"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "time": {
-                            "children": [
-                              {
-                                "beats": {
-                                  "value": "4"
-                                }
-                              },
-                              {
-                                "beatType": {
-                                  "value": "4"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "clef": {
-                            "children": [
-                              {
-                                "sign": {
-                                  "value": "G"
-                                }
-                              },
-                              {
-                                "line": {
-                                  "value": "2"
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "note": {
-                      "children": [
-                        {
-                          "pitch": {
-                            "children": [
-                              {
-                                "step": {
-                                  "value": "C"
-                                }
-                              },
-                              {
-                                "octave": {
-                                  "value": "4"
-                                }
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "duration": {
-                            "value": "4"
-                          }
-                        },
-                        {
-                          "type": {
-                            "value": "whole"
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
+              "type": "PartName",
+              "value": "Music"
             }
           ]
         }
-      }
-    ]
-  }
+      ]
+    },
+    {
+      "type": "Part",
+      "attributes": {
+        "id": "P1"
+      },
+      "children": [
+        {
+          "type": "Measure",
+          "attributes": {
+            "number": "1"
+          },
+          "children": [
+            {
+              "type": "Attributes",
+              "children": [
+                {
+                  "type": "Divisions",
+                  "value": "1"
+                },
+                {
+                  "type": "Key",
+                  "children": [
+                    {
+                      "type": "Fifths",
+                      "value": "0"
+                    }
+                  ]
+                },
+                {
+                  "type": "Time",
+                  "children": [
+                    {
+                      "type": "Beats",
+                      "value": "4"
+                    },
+                    {
+                      "type": "BeatType",
+                      "value": "4"
+                    }
+                  ]
+                },
+                {
+                  "type": "Clef",
+                  "children": [
+                    {
+                      "type": "Sign",
+                      "value": "G"
+                    },
+                    {
+                      "type": "Line",
+                      "value": "2"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Note",
+              "children": [
+                {
+                  "type": "Pitch",
+                  "children": [
+                    {
+                      "type": "Step",
+                      "value": "C"
+                    },
+                    {
+                      "type": "Octave",
+                      "value": "4"
+                    }
+                  ]
+                },
+                {
+                  "type": "Duration",
+                  "value": "4"
+                },
+                {
+                  "type": "Type",
+                  "value": "whole"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

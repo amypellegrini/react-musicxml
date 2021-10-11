@@ -1,22 +1,15 @@
 import React from "react";
+import parse, { Node, NodeType } from "./parse";
 import { Stave } from "react-scorewriter";
 
 const ReactMusicXML = ({ xml }: { xml: string }) => {
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xml, "text/xml");
-  const rootElement = xmlDoc.children[0];
-  const parts = Array.from(rootElement.getElementsByTagName("part"));
-
+  const parsed: Node = parse(xml);
   return (
-    <svg>
-      {parts.map((part, idx) => {
-        const clef = part.children[0].children[0].getElementsByTagName("clef");
-        const clefName =
-          clef[0].getElementsByTagName("sign")[0].textContent === "G"
-            ? "G-clef"
-            : "F-clef";
-
-        return <Stave clef={clefName} />;
+    <svg height="200" viewBox="0 -50 300 200">
+      {parsed.children.map((child, idx) => {
+        if (child.type === ("Part" as NodeType)) {
+          return <Stave key={idx} clef="G-clef" />;
+        }
       })}
     </svg>
   );

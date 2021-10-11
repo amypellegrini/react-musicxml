@@ -1,16 +1,32 @@
-type Tree = {
-  [key: string]: Node;
-};
+export type NodeType =
+  | "Clef"
+  | "Sign"
+  | "Attributes"
+  | "Note"
+  | "Key"
+  | "Pitch"
+  | "PartList"
+  | "PartName"
+  | "Divisions"
+  | "Fifths"
+  | "Beats"
+  | "BeatType"
+  | "PartList"
+  | "ScorePart"
+  | "Time"
+  | "Octave"
+  | "ScorePartwise";
 
-type Node = {
+export type Node = {
+  type: NodeType;
   attributes?: {
     [key: string]: String;
   };
-  children?: Tree[];
+  children?: Node[];
   value?: String;
 };
 
-function processChildren(xmlString: string, parentNode: Tree, tag: string) {
+function processChildren(xmlString: string, parentNode: Node, tag: string) {
   const parentTagKey = Object.keys(parentNode)[0];
 
   const innerContentStartIndex = xmlString.match(">").index + 1;
@@ -22,7 +38,7 @@ function processChildren(xmlString: string, parentNode: Tree, tag: string) {
   );
 
   if (innerContent.match("<") === null) {
-    parentNode[parentTagKey].value = innerContent;
+    parentNode.value = innerContent;
     return;
   }
 
@@ -31,33 +47,27 @@ function processChildren(xmlString: string, parentNode: Tree, tag: string) {
       .substring(0, innerContent.match(">").index)
       .trim()
       .split(" ");
-    const child: Tree = {};
 
     const childTag = attributes[0].substring(1);
 
-    const key = attributes[0]
+    const nodeType = attributes[0]
       .substring(1)
       .split("-")
       .map((part, i) => {
-        if (i > 0) {
-          return `${part.charAt(0).toUpperCase()}${part.slice(1)}`;
-        }
-
-        return part;
+        return `${part.charAt(0).toUpperCase()}${part.slice(1)}`;
       })
       .join("");
 
-    child[key] = {};
+    const child: Node = {
+      type: nodeType as NodeType,
+    };
 
     if (attributes.length > 1) {
-      child[key].attributes = {};
+      child.attributes = {};
 
       for (let i = 1; i < attributes.length; i++) {
         const keyValueTuple = attributes[i].split("=");
-        child[key].attributes[keyValueTuple[0]] = keyValueTuple[1].replace(
-          /"/g,
-          ""
-        );
+        child.attributes[keyValueTuple[0]] = keyValueTuple[1].replace(/"/g, "");
       }
     }
 
@@ -69,17 +79,16 @@ function processChildren(xmlString: string, parentNode: Tree, tag: string) {
         innerContent.match(`</${childTag}`).index + childTag.length + 3
       );
 
-    if (!parentNode[parentTagKey].children) {
-      parentNode[parentTagKey].children = [];
+    if (!parentNode.children) {
+      parentNode.children = [];
     }
 
-    parentNode[parentTagKey].children.push(child);
+    parentNode.children.push(child);
   }
 }
 
-export default function parse(xml: string): Object {
+export default function parse(xml: string): Node {
   let processedString = xml;
-  let rootNode: Tree = {};
 
   // TODO: some validation can be added here
   if (processedString.match("<?xml") !== null) {
@@ -99,26 +108,30 @@ export default function parse(xml: string): Object {
   }
 
   if (processedString.match("score-partwise") !== null) {
-    rootNode.scorePartwise = {};
+    const rootNode: Node = {
+      type: "ScorePartwise",
+    };
 
     const tagEndIndex = processedString.match(">").index;
     const attributes = processedString.substring(0, tagEndIndex).split(" ");
 
     if (attributes.length > 1) {
-      rootNode.scorePartwise.attributes = {};
+      rootNode.attributes = {};
 
       for (let i = 1; i < attributes.length; i++) {
         const keyValueTuple = attributes[i].split("=");
 
-        rootNode.scorePartwise.attributes[keyValueTuple[0]] =
-          keyValueTuple[1].replace(/"/g, "");
+        rootNode.attributes[keyValueTuple[0]] = keyValueTuple[1].replace(
+          /"/g,
+          ""
+        );
       }
     }
 
     processChildren(processedString, rootNode, "score-partwise");
+
+    return rootNode;
   } else {
     // throw some error here?
   }
-
-  return rootNode;
 }
